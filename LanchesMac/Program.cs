@@ -11,6 +11,8 @@ namespace LanchesMac
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            // define a string de conexão.
             builder.Services.AddDbContext<AppDbContext>(options => 
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
