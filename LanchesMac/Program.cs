@@ -11,7 +11,6 @@ namespace LanchesMac
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
             builder.Services.AddControllersWithViews();
 
             // define a string de conexão.
@@ -20,19 +19,18 @@ namespace LanchesMac
 
             //Registrando os serviços das repositorys(Injeção de dependencia).
 
-            //Scoped -> Nova instancia é criada a cada request, a cada requisição temos uma nova instancia
-            //Singleton -> apenas uma instancia de serviço é criada para todas as instancias.
-            //Transient -> Nova instancia é criada quando o serviço é solicitado
+            //AddScoped    -> Nova instancia é criada a cada request, a cada requisição temos uma nova instancia
+            //AddSingleton -> apenas uma instancia de serviço é criada para todas as instancias.
+            //AddTransient -> Nova instancia é criada quando o serviço é solicitado
+            
             builder.Services.AddTransient<ILanchesRepository, LanchesRepository>();
             builder.Services.AddTransient<ICategoriaRepository, CategoriaRepository>();
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
