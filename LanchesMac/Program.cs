@@ -19,6 +19,10 @@ namespace LanchesMac
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             //Registrando os serviços das repositorys(Injeção de dependencia).
+
+            //Scoped -> Nova instancia é criada a cada request, a cada requisição temos uma nova instancia
+            //Singleton -> apenas uma instancia de serviço é criada para todas as instancias.
+            //Transient -> Nova instancia é criada quando o serviço é solicitado
             builder.Services.AddTransient<ILanchesRepository, LanchesRepository>();
             builder.Services.AddTransient<ICategoriaRepository, CategoriaRepository>();
 
