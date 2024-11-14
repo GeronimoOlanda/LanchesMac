@@ -1,20 +1,26 @@
 ﻿@model IEnumerable<LanchesMac.Models.Lanches>
-<div>
-    @* Definido na controller(ViewData permite a gente recuperar dados da controller e colocar direto na view) *@
+@*  <div> 
+    Definido na controller(ViewData permite a gente recuperar dados da controller e colocar direto na view) 
     @ViewData["Titulo"]
 
     <h2>@ViewData["Data"]</h2>
-</div>
-<hr />
-<h3>
-    @ViewBag.Total @ViewBag.TotalLanches
-</h3>
-<hr />
+    </div>
+    <hr />
+    <h3>
+        @ViewBag.Total @ViewBag.TotalLanches
+    </h3>
+    <hr />
+    @if (TempData.ContainsKey("Nome"))
+    {
+        <h3>@TempData["Nome"];</h3>
+    }
 
-@if (TempData.ContainsKey("Nome"))
-{
-    <h3>@TempData["Nome"];</h3>
-}
+
+    @{
+        //Permite definir um layout para cada view
+        Layout = null;
+    }
+*@
 
 @foreach (var lanche in Model)
 {
