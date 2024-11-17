@@ -1,4 +1,4 @@
-﻿@model IEnumerable<LanchesMac.Models.Lanches>
+﻿@model LancheListViewModel
 @*  <div>
     Definido na controller(ViewData permite a gente recuperar dados da controller e colocar direto na view)
     @ViewData["Titulo"]
@@ -33,7 +33,7 @@
 
 <div class="container">
     <div class="row">
-        @foreach (var lanche in Model)
+        @foreach (var lanche in Model.lanches)
         {
             <div class="col-sm-4 col-sm-4 col-lg-4">
                 <p> <img src="@lanche.ImagemURL" style="border-radius: 10px" class="img-fluid" /> </p>
