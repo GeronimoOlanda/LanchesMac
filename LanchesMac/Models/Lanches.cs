@@ -45,7 +45,6 @@ namespace LanchesMac.Models
         [Display(Name = "Estoque")]
         public bool EmEstoque { get; set; }
 
-        //Referencia a Categoria
 
         public int CategoriaId { get; set; }
         public virtual Categoria Categoria { get; set; }
