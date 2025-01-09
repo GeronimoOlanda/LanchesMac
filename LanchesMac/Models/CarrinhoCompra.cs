@@ -7,14 +7,15 @@ namespace LanchesMac.Models
 
         private readonly AppDbContext _context; 
 
-
         public CarrinhoCompra(AppDbContext context)
         {
             this._context = context;
         }
 
-        public string CarrinhoCOmpraId { get; set; }
+        public string CarrinhoCompraId { get; set; }
+
         public List<CarrinhoCompraItem> CarrinhoCompraItems { get; set; }
+
 
         //obtem os carrinhos criados pelo cliente na sessão ao acesso ao site
         public static CarrinhoCompra GetCarrinho (IServiceProvider services)
@@ -34,10 +35,36 @@ namespace LanchesMac.Models
             //retorna o carrinho com o contexto e Id atribuido ou obtido
             return new CarrinhoCompra(context)
             {
-                CarrinhoCOmpraId = carrinhoId,
+                CarrinhoCompraId = carrinhoId,
             };
         
         }
 
+
+        //incluindo itens no carrinho
+        public void AdicionarAoCarrinho(Lanches lanche)
+        {
+            var carrinhoCompraItem = _context.carrinhoCompraItens.SingleOrDefault(
+                s => s.Lanche.LancheId == lanche.LancheId &&
+                s.CarrinhoCompraId == CarrinhoCompraId);
+
+            if(carrinhoCompraItem == null)
+            {
+                carrinhoCompraItem = new CarrinhoCompraItem
+                {
+                    CarrinhoCompraId = CarrinhoCompraId,
+                    Lanche = lanche,
+                    Quantidade = 1
+                };
+
+                _context.carrinhoCompraItens.Add(carrinhoCompraItem);
+            }
+            else
+            {
+                carrinhoCompraItem.Quantidade++;
+            }
+
+            _context.SaveChanges();
+        }
     }
 }
