@@ -17,6 +17,9 @@ namespace LanchesMac
             builder.Services.AddDbContext<AppDbContext>(options => 
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+            builder.Services.AddMemoryCache(); // habilitando armazenamento em cache
+            builder.Services.AddSession(); //habilitando as sessoes no projeto
+
             //Registrando os serviços das repositorys(Injeção de dependencia).
 
             //AddScoped    -> Nova instancia é criada a cada request, a cada requisição temos uma nova instancia
@@ -25,6 +28,8 @@ namespace LanchesMac
             
             builder.Services.AddTransient<ILanchesRepository, LanchesRepository>();
             builder.Services.AddTransient<ICategoriaRepository, CategoriaRepository>();
+            builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>(); //recupera uma instancia do HTTP Acessor e usamos os recursos de HTTPContext
+
 
             var app = builder.Build();
 
